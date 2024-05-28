@@ -3,7 +3,7 @@ package data.repository
 import data.model.Product
 import data.model.RequiredArticle
 
-class ProductRepositoryRAM(private val inventoryRepo : InventoryRepository) : ProductRepository {
+class ProductRepositoryRAM(private val inventoryRepository : InventoryRepository) : ProductRepository {
     private val products = mutableListOf(
         Product(
             "Chair",
@@ -39,7 +39,7 @@ class ProductRepositoryRAM(private val inventoryRepo : InventoryRepository) : Pr
     override fun getAvailableProducts(): List<Product> {
         return products.filter { product ->
             product.requiredArticles.all { requiredArticle ->
-                inventoryRepo.getStockOfArticle(requiredArticle.id) >= requiredArticle.quantity
+                inventoryRepository.getStockOfArticle(requiredArticle.id) >= requiredArticle.quantity
             }
         }
     }
@@ -50,15 +50,15 @@ class ProductRepositoryRAM(private val inventoryRepo : InventoryRepository) : Pr
 
     override fun isProductAvailable(product: Product) : Boolean {
         return product.requiredArticles.all { requiredArticle ->
-            inventoryRepo.getStockOfArticle(requiredArticle.id) >= requiredArticle.quantity
+            inventoryRepository.getStockOfArticle(requiredArticle.id) >= requiredArticle.quantity
         }
     }
 
     override fun sellProduct(product: Product) : Boolean {
         if (this.isProductAvailable(product)) {
             product.requiredArticles.forEach { requiredArticle ->
-                inventoryRepo.reduceStock(requiredArticle.id, requiredArticle.quantity)
-                inventoryRepo.getStockOfArticle(requiredArticle.id) >= requiredArticle.quantity
+                inventoryRepository.reduceStock(requiredArticle.id, requiredArticle.quantity)
+                inventoryRepository.getStockOfArticle(requiredArticle.id) >= requiredArticle.quantity
             }
             return true
         } else {
