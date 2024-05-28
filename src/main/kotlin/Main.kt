@@ -1,14 +1,11 @@
-import data.repository.InventoryRepository
-import data.repository.InventoryRepositoryRAM
-import data.repository.ProductRepository
-import data.repository.ProductRepositoryRAM
-import data.view.ConsoleView
+import java.io.File
 
 fun main() {
     println("Running IKEA Warehouse...")
+    val resourceFolder = File("src/main/resources")
+    val inventoryFile = File(resourceFolder, "inventory.json")
+    val productsFile = File(resourceFolder, "products.json")
 
-    val inventoryRepo : InventoryRepository = InventoryRepositoryRAM()
-    val productRepo : ProductRepository = ProductRepositoryRAM(inventoryRepo)
-
-    ConsoleView(productRepo, inventoryRepo).showMainMenu()
+    WarehouseApp(inventoryFile, productsFile)
+        .launch()
 }

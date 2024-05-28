@@ -20,6 +20,15 @@ class ProductRepositoryRAM(private val inventoryRepo : InventoryRepository) : Pr
                 RequiredArticle(1, 10),
                 RequiredArticle(5, 5)
             )
+        ),
+        Product(
+            "IKEA Thing",
+            99,
+            listOf(
+                RequiredArticle(1, 1),
+                RequiredArticle(2, 1),
+                RequiredArticle(3, 1)
+            )
         )
     )
 
