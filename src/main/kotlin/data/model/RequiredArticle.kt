@@ -4,9 +4,8 @@ import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.JsonNames
 
 @OptIn(ExperimentalSerializationApi::class)
-data class Product(
-    val name : String,
-    val price : Int,
-    @JsonNames("contain_articles")
-    val requiredArticles : List<RequiredArticle>
+data class RequiredArticle(
+    @JsonNames("art_id")
+    val id : Int,
+    val quantity : Int
 )
